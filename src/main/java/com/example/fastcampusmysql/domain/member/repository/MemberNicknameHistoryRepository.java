@@ -1,4 +1,4 @@
-package com.example.fastcampusmysql.domain.member.repositiry;
+package com.example.fastcampusmysql.domain.member.repository;
 
 import com.example.fastcampusmysql.domain.member.entity.MemberNicknameHistory;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class MemberNicknameHistoryRepository {
     final private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     static final String TABLE = "MemberNicknameHistory";
-    static final RowMapper<MemberNicknameHistory> ROW_MAPPER = (ResultSet resultSet, int rowNum) -> MemberNicknameHistory
+    static final RowMapper<MemberNicknameHistory> rowMapper = (ResultSet resultSet, int rowNum) -> MemberNicknameHistory
             .builder()
             .id(resultSet.getLong("id"))
             .memberId(resultSet.getLong("memberId"))
@@ -33,7 +33,7 @@ public class MemberNicknameHistoryRepository {
     public List<MemberNicknameHistory> findAllByMemberId(Long memberId) {
         var sql = String.format("SELECT * FROM %s WHERE memberId = :memberId", TABLE);
         var params = new MapSqlParameterSource().addValue("memberId", memberId);
-        return namedParameterJdbcTemplate.query(sql, params, ROW_MAPPER);
+        return namedParameterJdbcTemplate.query(sql, params, rowMapper);
     }
 
     public MemberNicknameHistory save(MemberNicknameHistory history) {
