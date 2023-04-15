@@ -29,7 +29,7 @@ public class PostBulkInsertTest {
         var stopWatch = new StopWatch();
         stopWatch.start();
 
-        int _1만 = 1000000;
+        int _1만 = 10000;
         var posts = IntStream.range(0, _1만 * 1)
                 .parallel()
                 .mapToObj(i -> easyRandom.nextObject(Post.class))
